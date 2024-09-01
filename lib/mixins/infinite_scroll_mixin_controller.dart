@@ -11,8 +11,44 @@ mixin InfiniteScrollMixinController<T> on GetxController {
   final Rx<int> _lastPage = 0.obs;
   final RxListObject<T> itemsList = RxListObject<T>([]);
   final Rx<bool> _fetching = false.obs;
-
   DebounceTime? debounceTime;
+
+  @override
+  void onInit() async {
+    if (shouldFetchOnInit) {
+      await list(0);
+    }
+
+    super.onInit();
+  }
+
+  @override
+  void onReady() {
+    if (enableSearch) {
+      debounceTime = DebounceTime<String>(
+        const Duration(milliseconds: 500),
+        (String value) {
+          searchText = value;
+        },
+      );
+    }
+
+    if (enableInfiniteScroll) {
+      scrollListen();
+    }
+
+    super.onReady();
+  }
+
+  @override
+  void onClose() {
+    removeScrollListener();
+    if (debounceTime != null) {
+      fetching = false;
+      debounceTime!.cancel();
+    }
+    super.onClose();
+  }
 
   int get limit => 100;
 
@@ -46,42 +82,6 @@ mixin InfiniteScrollMixinController<T> on GetxController {
     _fetching.refresh();
   }
 
-  @override
-  void onInit() async {
-    if (shouldFetchOnInit) {
-      await list(0);
-    }
-
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    if (enableSearch) {
-      debounceTime = DebounceTime<String>(
-        const Duration(milliseconds: 600),
-        (String value) {
-          searchText = value;
-        },
-      );
-    }
-
-    if (enableInfiniteScroll) {
-      scrollListen();
-    }
-
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    removeScrollListener();
-    if (debounceTime != null) {
-      debounceTime!.cancel();
-    }
-    super.onClose();
-  }
-
   static InfiniteScrollMixinController get instance =>
       Get.find<InfiniteScrollMixinController>();
 
@@ -97,8 +97,10 @@ mixin InfiniteScrollMixinController<T> on GetxController {
     if (debounceTime != null) {
       debounceTime!.cancel();
       if (text.isNotEmpty) {
+        fetching = true;
         debounceTime!.value = text.replaceAll(RegExp(r'/\s+/g'), "");
       } else {
+        fetching = false;
         searchText = '';
       }
     }
@@ -149,12 +151,16 @@ mixin InfiniteScrollMixinController<T> on GetxController {
     await list(items.length);
   }
 
-  Future<void> updateItems(T? offset, List<T> items) async {
-    if (shouldAppend(items) && offset != null) {
+  Future<void> updateItems(int offset, List<T> items) async {
+    if (shouldAppend(items) && offset > 0) {
       itemsList.append(items);
     } else {
       if (items.isNotEmpty) {
         itemsList.renew(items);
+      } else {
+        if (items.isEmpty && searchText.isNotEmpty) {
+          itemsList.renew([]);
+        }
       }
     }
     itemsList.refresh();
