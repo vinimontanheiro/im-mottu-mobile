@@ -27,8 +27,8 @@ class SignStartUpController extends GetxController {
   }
 
   @override
-  void onInit() {
-    init();
+  void onInit() async {
+    await init();
     super.onInit();
   }
 
