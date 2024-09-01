@@ -1,5 +1,6 @@
 import Flutter
 import UIKit
+import FirebaseCore
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
@@ -10,7 +11,8 @@ import UIKit
         GeneratedPluginRegistrant.register(
             with: self
         )
-        
+        FirebaseApp.configure()
+      
         let controller : FlutterViewController = window?.rootViewController as! FlutterViewController
         AppEventChannel().setup(controller: controller)
         

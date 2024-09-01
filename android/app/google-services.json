@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "688707549675",
+    "project_id": "mottumarvel",
+    "storage_bucket": "mottumarvel.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:688707549675:android:0cf2c0a878027fb76ec1ae",
+        "android_client_info": {
+          "package_name": "com.mottu.marvel"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHL8UIVzUcTTF_2KsTj1sCOJTzah_B8gQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
