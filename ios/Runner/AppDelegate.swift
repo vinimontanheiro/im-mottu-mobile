@@ -10,11 +10,9 @@ import UIKit
         GeneratedPluginRegistrant.register(
             with: self
         )
-  
+        
         let controller : FlutterViewController = window?.rootViewController as! FlutterViewController
-       
-        let eventChannel = FlutterEventChannel(name: "com.mottu.marvel/network_connectivity", binaryMessenger: controller.binaryMessenger)
-             eventChannel.setStreamHandler(NetworkConnectivityHandler())
+        AppEventChannel().setup(controller: controller)
         
         return super.application(
             application,

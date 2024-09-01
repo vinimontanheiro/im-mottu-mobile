@@ -26,7 +26,6 @@ class NetworkConnectivity extends GetxController {
           .receiveBroadcastStream()
           .listen((dynamic isConnected) {
         connected = isConnected ?? false;
-        print(connected);
       });
     } catch (e) {
       Logger.info(e);

@@ -13,9 +13,10 @@ class NetworkConnectivityHandler: NSObject, FlutterStreamHandler {
     let monitor = NWPathMonitor()
     
     override init() {
-        let queue = DispatchQueue(label: "NetworkMonitor")
+        let queue = DispatchQueue(label: "NetworkConnectivity")
         monitor.start(queue: queue)
     }
+    
     var connected: Bool {
         get {
             return monitor.currentPath.usesInterfaceType(.wifi) || monitor.currentPath.usesInterfaceType(.cellular)
@@ -31,7 +32,6 @@ class NetworkConnectivityHandler: NSObject, FlutterStreamHandler {
             self.eventSink!(path.status == .satisfied)
         }
         
-        
         return nil
     }
     
@@ -40,6 +40,5 @@ class NetworkConnectivityHandler: NSObject, FlutterStreamHandler {
         eventSink = nil
         return nil
     }
-    
     
 }

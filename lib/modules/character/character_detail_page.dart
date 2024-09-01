@@ -68,7 +68,6 @@ class CharacterDetailPage extends StatelessWidget {
               style: TextStyle(
                 fontSize: 13,
                 color: Colors.grey.shade300,
-                fontWeight: FontWeight.w500,
               ),
             ),
           )

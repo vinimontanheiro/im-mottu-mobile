@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -5,7 +6,6 @@ import 'package:marvel/models/character.dart';
 import 'package:marvel/modules/character/character_controller.dart';
 import 'package:marvel/modules/menu/menu_handler.dart';
 import 'package:marvel/modules/ui/circular_progress_indicator_ui.dart';
-import 'package:marvel/modules/ui/divider_ui.dart';
 import 'package:marvel/modules/ui/loading_screen_ui.dart';
 import 'package:marvel/modules/ui/scroll_bar_ui.dart';
 import 'package:marvel/modules/ui/search_text_field_ui.dart';
@@ -61,42 +61,44 @@ class CharacterListPage extends GetView<CharacterController> {
                         return Stack(
                           children: [
                             Positioned(
-                              child: Column(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: InkWell(
-                                      onTap: () async {
-                                        await controller.detail(character);
-                                      },
-                                      child: Hero(
-                                        tag: character.id,
-                                        child: CachedNetworkImage(
-                                          width:
-                                              Dimensions.widthOf(context, 100),
-                                          imageUrl: character.imageUrl,
-                                          fit: BoxFit.cover,
+                              child: FadeIn(
+                                child: Column(
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: GestureDetector(
+                                        onTap: () async {
+                                          await controller.detail(character);
+                                        },
+                                        child: Hero(
+                                          tag: character.id,
+                                          child: CachedNetworkImage(
+                                            width: Dimensions.widthOf(
+                                                context, 100),
+                                            imageUrl: character.imageUrl,
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  Visibility(
-                                    visible: shouldShowLoading &&
-                                        controller.searchText.isEmpty,
-                                    child: const SizedBox(
-                                      height: 15,
-                                    ),
-                                  ),
-                                  Visibility(
-                                    visible: shouldShowLoading &&
-                                        controller.searchText.isEmpty,
-                                    child: Center(
-                                      child: CircularProgressIndicatorUI(
-                                        color: Colors.amber.shade600,
+                                    Visibility(
+                                      visible: shouldShowLoading &&
+                                          controller.searchText.isEmpty,
+                                      child: const SizedBox(
+                                        height: 15,
                                       ),
                                     ),
-                                  )
-                                ],
+                                    Visibility(
+                                      visible: shouldShowLoading &&
+                                          controller.searchText.isEmpty,
+                                      child: Center(
+                                        child: CircularProgressIndicatorUI(
+                                          color: Colors.amber.shade600,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                             Positioned(
@@ -132,13 +134,8 @@ class CharacterListPage extends GetView<CharacterController> {
                           ],
                         );
                       },
-                      separatorBuilder: (context, index) => const Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 10,
-                        ),
-                        child: DividerUI(
-                          color: AppColors.overlayWhite,
-                        ),
+                      separatorBuilder: (context, index) => const SizedBox(
+                        height: 20,
                       ),
                     ),
                   ),

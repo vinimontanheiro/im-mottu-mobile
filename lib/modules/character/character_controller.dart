@@ -17,7 +17,6 @@ class CharacterController extends SearchGenericController<Character> {
   void onInit() async {
     change(false, status: RxStatus.loading());
     FlutterNativeSplash.remove();
-    await list(0);
     super.onInit();
   }
 
