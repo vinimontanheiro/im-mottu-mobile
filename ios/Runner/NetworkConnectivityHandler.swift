@@ -35,7 +35,6 @@ class NetworkConnectivityHandler: NSObject, FlutterStreamHandler {
         return nil
     }
     
-    
     func onCancel(withArguments arguments: Any?) -> FlutterError? {
         eventSink = nil
         return nil
