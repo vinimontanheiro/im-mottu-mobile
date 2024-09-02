@@ -13,12 +13,12 @@ class Thumbnail extends Equatable {
 
   factory Thumbnail.fromJson(Map<String, dynamic> map) => Thumbnail(
         path: map['path'],
-        ext: map["extension"],
+        ext: map["extension"] ?? map["ext"],
       );
 
   Map<String, dynamic> toJson() => {
         "path": path,
-        "ext": ext,
+        "extension": ext,
       };
 
   @override

@@ -19,7 +19,7 @@ class Character extends Equatable {
   factory Character.fromJson(Map<String, dynamic> map) => Character(
         id: map['id'],
         name: map["name"],
-        description: map["description"],
+        description: map["description"] ?? '',
         thumbnail: Thumbnail.fromJson(
           map["thumbnail"],
         ),

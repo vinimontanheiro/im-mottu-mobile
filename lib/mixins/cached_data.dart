@@ -22,7 +22,8 @@ mixin CachedData on GetxController {
       SharedPreferences preferences = await SharedPreferences.getInstance();
       String? encodedData = preferences.getString(AppKeys.cachedData);
       if (encodedData != null) {
-        return json.decode(encodedData);
+        return Future.value(
+            List<Map<String, dynamic>>.from(json.decode(encodedData)));
       }
       return [];
     } catch (e) {
