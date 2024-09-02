@@ -20,15 +20,17 @@ class NetworkConnectivity extends GetxController {
     _connected.refresh();
   }
 
-  void listen() async {
+  Future<bool> listen() async {
     try {
       AppMethodChannel.mottuMarvelEventChannel
           .receiveBroadcastStream()
           .listen((dynamic isConnected) {
         connected = isConnected ?? false;
       });
+      return true;
     } catch (e) {
       Logger.error(e);
+      return Future.error(e);
     }
   }
 }

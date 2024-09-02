@@ -37,8 +37,6 @@ class SerieServiceAPI {
     }
   }
 
-  // /v1/public/series/{seriesId}/characters
-
   Future<List<Character>> get(int serieId) async {
     try {
       Uri uri = Uri.parse(url);
