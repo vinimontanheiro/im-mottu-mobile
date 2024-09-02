@@ -48,7 +48,7 @@ class MenuHandler extends StatelessWidget with GetxServiceMixin {
                           menuType.name.tr.toUpperCase(),
                           style: const TextStyle(
                             fontSize: 13,
-                            color: AppColors.greyFont,
+                            color: Colors.black,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

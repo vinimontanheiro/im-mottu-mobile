@@ -4,13 +4,16 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:marvel/app.dart';
+import 'package:marvel/services/bootstrap.dart';
 import 'package:marvel/services/locale/app_translations.dart';
 import 'package:marvel/constants/app_strings.dart';
 import 'package:marvel/services/page_manager.dart';
 
-void main() {
+void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  await Bootstrap.initialize();
   runApp(const MottuMarvel());
 }
 
@@ -19,6 +22,8 @@ class MottuMarvel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Bootstrap.resources(context);
+
     return GetMaterialApp(
       title: AppStrings.appName,
       localizationsDelegates: const [
@@ -42,9 +47,12 @@ class MottuMarvel extends StatelessWidget {
       initialRoute: PageManager.initialRoute(),
       builder: (context, child) {
         return MediaQuery(
-          data: MediaQuery.of(context)
-              .copyWith(textScaler: const TextScaler.linear(1.0)),
-          child: child!,
+          data: MediaQuery.of(context).copyWith(
+            textScaler: const TextScaler.linear(1.0),
+          ),
+          child: App(
+            child: child!,
+          ),
         );
       },
     );

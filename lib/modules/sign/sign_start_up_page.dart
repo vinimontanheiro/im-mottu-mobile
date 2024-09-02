@@ -65,7 +65,7 @@ class SignStartUpPage extends GetView<SignStartUpController> {
                       Text(
                         'auto_join'.tr.toUpperCase(),
                         style: const TextStyle(
-                          fontSize: 13,
+                          fontSize: 12,
                           color: AppColors.whiteTheme,
                           fontWeight: FontWeight.w600,
                         ),

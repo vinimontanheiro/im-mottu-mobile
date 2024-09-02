@@ -121,7 +121,7 @@ mixin InfiniteScrollMixinController<T> on GetxController {
         },
       );
     } catch (e) {
-      Logger.info(e);
+      Logger.error(e);
     }
   }
 
@@ -129,7 +129,7 @@ mixin InfiniteScrollMixinController<T> on GetxController {
     try {
       scrollController.removeListener(scrollListen);
     } catch (e) {
-      Logger.info(e);
+      Logger.error(e);
     }
   }
 
@@ -138,7 +138,7 @@ mixin InfiniteScrollMixinController<T> on GetxController {
       removeScrollListener();
       scrollListen();
     } catch (e) {
-      Logger.info(e);
+      Logger.error(e);
     }
   }
 
@@ -171,7 +171,7 @@ mixin InfiniteScrollMixinController<T> on GetxController {
       textEditingController.clear();
       searchText = '';
     } catch (e) {
-      Logger.info(e);
+      Logger.error(e);
     }
   }
 

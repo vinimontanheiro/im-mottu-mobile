@@ -13,7 +13,7 @@ class RxListObject<T> extends Rx<List<T>> {
         refresh();
       }
     } catch (e) {
-      Logger.info(e);
+      Logger.error(e);
     }
   }
 
@@ -28,7 +28,7 @@ class RxListObject<T> extends Rx<List<T>> {
         refresh();
       }
     } catch (e) {
-      Logger.info(e);
+      Logger.error(e);
     }
   }
 
@@ -44,7 +44,7 @@ class RxListObject<T> extends Rx<List<T>> {
         refresh();
       }
     } catch (e) {
-      Logger.info(e);
+      Logger.error(e);
     }
   }
 
@@ -73,7 +73,7 @@ class RxListObject<T> extends Rx<List<T>> {
         push(item);
       }
     } catch (e) {
-      Logger.info(e);
+      Logger.error(e);
     }
   }
 }

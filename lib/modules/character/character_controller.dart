@@ -17,7 +17,6 @@ class CharacterController extends SearchGenericController<Character> {
   void onInit() async {
     change(false, status: RxStatus.loading());
     FlutterNativeSplash.remove();
-    await list(0);
     super.onInit();
   }
 
@@ -35,7 +34,7 @@ class CharacterController extends SearchGenericController<Character> {
       change(true, status: RxStatus.success());
       fetching = false;
     } catch (e) {
-      Logger.info(e);
+      Logger.error(e);
     }
   }
 
@@ -48,7 +47,7 @@ class CharacterController extends SearchGenericController<Character> {
         transition: Transition.downToUp,
       );
     } catch (e) {
-      Logger.info(e);
+      Logger.error(e);
     }
   }
 }

@@ -1,17 +1,17 @@
-// ignore_for_file: avoid_print
-
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 
 class Logger {
-  static void info(
+  static void error(
     dynamic error, {
     StackTrace? stackTrace,
-  }) {
-    if (error is String) {
+    String reason = 'a non-fatal error',
+  }) async {
+    try {
+      await FirebaseCrashlytics.instance
+          .recordError(error, stackTrace, reason: reason);
+    } catch (e) {
       debugPrint(error.toString());
-    }
-    if (error?.stackTrace != null) {
-      debugPrint(error?.stackTrace.toString());
     }
   }
 }

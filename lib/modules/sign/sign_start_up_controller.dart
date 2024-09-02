@@ -27,8 +27,8 @@ class SignStartUpController extends GetxController {
   }
 
   @override
-  void onInit() {
-    init();
+  void onInit() async {
+    await init();
     super.onInit();
   }
 
@@ -42,7 +42,7 @@ class SignStartUpController extends GetxController {
         FlutterNativeSplash.remove();
       }
     } catch (e) {
-      Logger.info(e);
+      Logger.error(e);
     }
   }
 
