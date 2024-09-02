@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:marvel/models/rx_list.dart';
 import 'package:marvel/services/logger.dart';
+import 'package:marvel/services/network_connectivity.dart';
 import '../services/debounce_time.dart';
 
 mixin InfiniteScrollMixinController<T> on GetxController {
@@ -15,10 +16,9 @@ mixin InfiniteScrollMixinController<T> on GetxController {
 
   @override
   void onInit() async {
-    if (shouldFetchOnInit) {
+    if (shouldFetchOnInit && NetworkConnectivity.instance.connected) {
       await list(0);
     }
-
     super.onInit();
   }
 
