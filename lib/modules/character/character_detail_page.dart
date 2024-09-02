@@ -136,46 +136,49 @@ class CharacterDetailPage extends GetView<CharacterDetailController> {
                   ),
                   content: SizedBox(
                     width: Dimensions.widthOf(context, 100),
-                    height: Dimensions.heightOf(context, 86),
-                    child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: controller.series.length,
-                      physics: const BouncingScrollPhysics(),
-                      padding: EdgeInsets.zero,
-                      itemBuilder: (context, index) {
-                        Serie serie = controller.series[index];
-                        return Column(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: GestureDetector(
-                                onTap: () async {
-                                  // await controller.detail(character);
-                                },
-                                child: CachedNetworkImage(
-                                  width: Dimensions.widthOf(context, 80),
-                                  height: Dimensions.heightOf(context, 70),
-                                  imageUrl: serie.imageUrl,
-                                  fit: BoxFit.cover,
+                    height: Dimensions.heightOf(context, 80),
+                    child: Obx(
+                      () => ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: controller.series.length,
+                        physics: const BouncingScrollPhysics(),
+                        padding: EdgeInsets.zero,
+                        itemBuilder: (context, index) {
+                          Serie serie = controller.series[index];
+                          return Column(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    await CharacterController.instance
+                                        .preview(serie.imageUrl);
+                                  },
+                                  child: CachedNetworkImage(
+                                    width: Dimensions.widthOf(context, 80),
+                                    height: Dimensions.heightOf(context, 70),
+                                    imageUrl: serie.imageUrl,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              serie.title,
-                              style: const TextStyle(
-                                fontSize: 11,
-                                color: AppColors.whiteTheme,
-                                fontWeight: FontWeight.bold,
+                              const SizedBox(
+                                height: 5,
                               ),
-                            ),
-                          ],
-                        );
-                      },
-                      separatorBuilder: (context, index) => const SizedBox(
-                        width: 5,
+                              Text(
+                                serie.title,
+                                style: const TextStyle(
+                                  fontSize: 11,
+                                  color: AppColors.whiteTheme,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                        separatorBuilder: (context, index) => const SizedBox(
+                          width: 5,
+                        ),
                       ),
                     ),
                   ),
@@ -230,10 +233,12 @@ class CharacterDetailPage extends GetView<CharacterDetailController> {
                                       isThumbnail: true,
                                       showInfo: false,
                                       onTap: () async {
-                                        await CharacterController.instance
-                                            .deatail(
-                                          character.id,
-                                        );
+                                        await await CharacterController.instance
+                                            .preview(character.imageUrl);
+                                      },
+                                      onLongPress: () async {
+                                        await await CharacterController.instance
+                                            .preview(character.imageUrl);
                                       },
                                     ))
                                 .toList(),

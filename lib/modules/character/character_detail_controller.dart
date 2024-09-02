@@ -31,6 +31,7 @@ class CharacterDetailController extends GetxController {
   Future<void> handleSeries(int characterId) async {
     try {
       _series.loading = true;
+      _relatedCharacters.loading = true;
       List<Serie> seriesList = await serieServiceAPI.list(characterId);
       _series.renew(seriesList);
       _series.refresh();

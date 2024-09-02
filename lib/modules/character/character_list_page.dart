@@ -61,6 +61,9 @@ class CharacterListPage extends GetView<CharacterController> {
                           onTap: () async {
                             await controller.detail(character);
                           },
+                          onLongPress: () async {
+                            await controller.preview(character.imageUrl);
+                          },
                         );
                       },
                       separatorBuilder: (context, index) => const SizedBox(

@@ -9,6 +9,7 @@ import 'package:marvel/services/dimensions.dart';
 class CharacterCard extends StatelessWidget {
   final Character character;
   final void Function() onTap;
+  final void Function() onLongPress;
   final bool loading;
   final double width;
   final bool showInfo;
@@ -22,6 +23,7 @@ class CharacterCard extends StatelessWidget {
     this.width = 100,
     this.isThumbnail = false,
     this.showInfo = true,
+    required this.onLongPress,
   });
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,7 @@ class CharacterCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   child: GestureDetector(
                     onTap: onTap,
+                    onLongPress: onLongPress,
                     child: CachedNetworkImage(
                       width: Dimensions.widthOf(context, width),
                       height: isThumbnail
