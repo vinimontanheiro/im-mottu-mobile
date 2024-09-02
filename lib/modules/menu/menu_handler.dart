@@ -4,16 +4,23 @@ import 'package:marvel/constants/app_enumators.dart';
 import 'package:marvel/modules/ui/divider_ui.dart';
 import 'package:marvel/constants/app_colors.dart';
 import 'package:marvel/services/dimensions.dart';
+import 'package:marvel/services/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MenuHandler extends StatelessWidget with GetxServiceMixin {
   const MenuHandler({super.key});
 
-  Future<void> handleSignOut() async {
-    Get.back();
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    await preferences.clear();
-    Get.back();
+  Future<bool> handleSignOut() async {
+    try {
+      Get.back();
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      await preferences.clear();
+      Get.back();
+      return true;
+    } catch (e) {
+      Logger.error(e);
+      return Future.error(e);
+    }
   }
 
   Future<void> handleMenuAction(MenuType menuType) async {

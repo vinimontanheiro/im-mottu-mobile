@@ -193,7 +193,7 @@ class CharacterDetailPage extends GetView<CharacterDetailController> {
                   headerPadding: EdgeInsets.zero,
                 ),
                 AccordionSection(
-                  isOpen: !controller.relatedCharactersLoading,
+                  isOpen: true,
                   contentVerticalPadding: 8,
                   leftIcon: const Icon(Icons.groups, color: Colors.white),
                   rightIcon: Obx(
@@ -226,20 +226,27 @@ class CharacterDetailPage extends GetView<CharacterDetailController> {
                             runSpacing: 5.0,
                             spacing: 5,
                             children: controller.relatedCharacters
-                                .map((character) => CharacterCard(
-                                      width: 12,
-                                      character: character,
-                                      loading: false,
-                                      isThumbnail: true,
-                                      showInfo: false,
-                                      onTap: () async {
-                                        await await CharacterController.instance
-                                            .preview(character.imageUrl);
-                                      },
-                                      onLongPress: () async {
-                                        await await CharacterController.instance
-                                            .preview(character.imageUrl);
-                                      },
+                                .where(
+                                  (rc) => rc.id != character.id,
+                                )
+                                .map((character) => Visibility(
+                                      child: CharacterCard(
+                                        width: 12,
+                                        character: character,
+                                        loading: false,
+                                        isThumbnail: true,
+                                        showInfo: false,
+                                        onTap: () async {
+                                          await await CharacterController
+                                              .instance
+                                              .preview(character.imageUrl);
+                                        },
+                                        onLongPress: () async {
+                                          await await CharacterController
+                                              .instance
+                                              .preview(character.imageUrl);
+                                        },
+                                      ),
                                     ))
                                 .toList(),
                           ),

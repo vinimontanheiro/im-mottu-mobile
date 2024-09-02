@@ -5,12 +5,11 @@ import 'package:marvel/constants/app_colors.dart';
 import 'package:marvel/services/dimensions.dart';
 
 class ImagePreviewUI extends StatelessWidget {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final String imageUrl;
   final double width;
   final double? height;
 
-  ImagePreviewUI({
+  const ImagePreviewUI({
     super.key,
     required this.imageUrl,
     this.width = 100.0,
@@ -20,7 +19,6 @@ class ImagePreviewUI extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.redTheme,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
