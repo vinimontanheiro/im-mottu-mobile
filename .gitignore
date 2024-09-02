@@ -47,7 +47,3 @@ app.*.map.json
 /android/app/release
 build/app/outputs/**
 cache/
-.dart_tool
-.flutter-plugins-dependencies
-.flutter-plugins
-build
