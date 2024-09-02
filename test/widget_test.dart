@@ -129,7 +129,9 @@ Future<void> main() async {
     Get.put(SignStartUpController());
     await tester.pumpWidget(
       buildWithMediaQueryWidget(
-        const SignStartUpPage(),
+        const SignStartUpPage(
+          height: 100,
+        ),
       ),
     );
 

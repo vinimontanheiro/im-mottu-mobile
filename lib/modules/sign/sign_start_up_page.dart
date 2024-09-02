@@ -8,7 +8,12 @@ import 'package:marvel/constants/app_images.dart';
 import 'package:marvel/services/dimensions.dart';
 
 class SignStartUpPage extends GetView<SignStartUpController> {
-  const SignStartUpPage({super.key});
+  final double height;
+
+  const SignStartUpPage({
+    super.key,
+    this.height = 0,
+  });
 
   Widget marvelAnimationRender(StartUpAnimationStatusType animationStatusType) {
     switch (animationStatusType) {
@@ -35,7 +40,7 @@ class SignStartUpPage extends GetView<SignStartUpController> {
         child: Padding(
           padding: const EdgeInsets.all(15.0),
           child: SizedBox(
-            height: Dimensions.heightOf(context, 100),
+            height: height > 0 ? Dimensions.heightOf(context, 100) : null,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
