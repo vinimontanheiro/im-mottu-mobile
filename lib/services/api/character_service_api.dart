@@ -4,12 +4,12 @@ import 'package:marvel/models/character.dart';
 import 'dart:convert' as convert;
 import 'package:marvel/services/api/http_basic_client.dart';
 
-class MarvelCharactersServiceAPI {
+class CharacterServiceAPI {
   final String url = "http://gateway.marvel.com";
   final String path = '/v1/public/characters';
   final HttpBaseClient httpBaseClient = HttpBaseClient();
 
-  MarvelCharactersServiceAPI() {
+  CharacterServiceAPI() {
     httpBaseClient.defaultHeaders = {
       'accept': 'application/json',
       'Content-Type': 'application/json',

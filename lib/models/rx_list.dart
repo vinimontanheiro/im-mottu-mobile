@@ -6,6 +6,15 @@ class RxListObject<T> extends Rx<List<T>> {
     super.initial,
   );
 
+  final Rx<bool> _loading = false.obs;
+
+  bool get loading => _loading.value;
+
+  set loading(bool value) {
+    _loading.value = value;
+    _loading.refresh();
+  }
+
   void push(dynamic item) {
     try {
       if (value.where((dynamic itemRef) => itemRef.uid == item.uid).isEmpty) {

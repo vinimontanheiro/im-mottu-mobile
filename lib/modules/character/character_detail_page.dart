@@ -1,19 +1,28 @@
+import 'package:accordion/accordion.dart';
+import 'package:accordion/controllers.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:marvel/models/character.dart';
+import 'package:marvel/models/serie.dart';
+import 'package:marvel/modules/character/character_card.dart';
+import 'package:marvel/modules/character/character_controller.dart';
+import 'package:marvel/modules/character/character_detail_controller.dart';
+import 'package:marvel/modules/ui/circular_progress_indicator_ui.dart';
+import 'package:marvel/modules/ui/divider_ui.dart';
 import 'package:marvel/modules/ui/scaffold_extend_body_ui.dart';
 import 'package:marvel/constants/app_colors.dart';
 import 'package:marvel/services/dimensions.dart';
 
-class CharacterDetailPage extends StatelessWidget {
+class CharacterDetailPage extends GetView<CharacterDetailController> {
   final Character character;
 
   const CharacterDetailPage({
     super.key,
     required this.character,
   });
+
   @override
   Widget build(BuildContext context) {
     return ScaffoldExtendBodyUI(
@@ -37,41 +46,224 @@ class CharacterDetailPage extends StatelessWidget {
           onPressed: () => Get.back(),
         ),
       ),
-      body: Column(
-        children: [
-          Hero(
-            tag: character.id,
-            child: CachedNetworkImage(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            CachedNetworkImage(
               width: Dimensions.widthOf(context, 100),
               imageUrl: character.imageUrl,
               fit: BoxFit.cover,
             ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          ListTile(
-            leading: const Icon(
-              Icons.info_outline,
-              color: AppColors.whiteTheme,
+            const SizedBox(
+              height: 20,
             ),
-            title: Text(
-              character.name,
-              style: const TextStyle(
-                fontSize: 13,
+            ListTile(
+              dense: true,
+              visualDensity: VisualDensity.compact,
+              leading: const Icon(
+                Icons.info_outline,
                 color: AppColors.whiteTheme,
-                fontWeight: FontWeight.bold,
+              ),
+              title: Text(
+                character.name,
+                style: const TextStyle(
+                  fontSize: 13,
+                  color: AppColors.whiteTheme,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              subtitle: Visibility(
+                visible: character.description.isNotEmpty,
+                child: Text(
+                  character.description,
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: Colors.grey.shade300,
+                  ),
+                ),
               ),
             ),
-            subtitle: Text(
-              character.description,
-              style: TextStyle(
-                fontSize: 13,
-                color: Colors.grey.shade300,
-              ),
+            Accordion(
+              headerBorderColor: AppColors.whiteTheme,
+              headerBorderColorOpened: AppColors.whiteTheme,
+              headerBorderWidth: 0,
+              headerBackgroundColorOpened: Colors.transparent,
+              contentBackgroundColor: AppColors.redTheme,
+              contentBorderColor: AppColors.whiteTheme,
+              headerBackgroundColor: Colors.transparent,
+              contentBorderWidth: 0,
+              contentHorizontalPadding: 6,
+              scaleWhenAnimating: true,
+              openAndCloseAnimation: true,
+              headerPadding:
+                  const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
+              sectionOpeningHapticFeedback: SectionHapticFeedback.light,
+              sectionClosingHapticFeedback: SectionHapticFeedback.light,
+              disableScrolling: true,
+              children: [
+                AccordionSection(
+                  isOpen: false,
+                  header: const DividerUI(
+                    color: AppColors.overlayWhite,
+                  ),
+                  rightIcon: const SizedBox(),
+                  content: const SizedBox(),
+                  headerPadding: EdgeInsets.zero,
+                ),
+                AccordionSection(
+                  isOpen: false,
+                  contentVerticalPadding: 8,
+                  leftIcon:
+                      const Icon(Icons.stream_outlined, color: Colors.white),
+                  rightIcon: Obx(
+                    () => Visibility(
+                      visible: controller.seriesLoading,
+                      replacement: const Icon(Icons.keyboard_arrow_up_sharp,
+                          size: 28, color: AppColors.whiteTheme),
+                      child: const CircularProgressIndicatorUI(
+                        width: 15,
+                        height: 15,
+                      ),
+                    ),
+                  ),
+                  header: Text(
+                    'series'.tr.toUpperCase(),
+                    style: const TextStyle(
+                      fontSize: 13,
+                      color: AppColors.whiteTheme,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  content: SizedBox(
+                    width: Dimensions.widthOf(context, 100),
+                    height: Dimensions.heightOf(context, 80),
+                    child: Obx(
+                      () => ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: controller.series.length,
+                        physics: const BouncingScrollPhysics(),
+                        padding: EdgeInsets.zero,
+                        itemBuilder: (context, index) {
+                          Serie serie = controller.series[index];
+                          return Column(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    await CharacterController.instance
+                                        .preview(serie.imageUrl);
+                                  },
+                                  child: CachedNetworkImage(
+                                    width: Dimensions.widthOf(context, 80),
+                                    height: Dimensions.heightOf(context, 70),
+                                    imageUrl: serie.imageUrl,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                serie.title,
+                                style: const TextStyle(
+                                  fontSize: 11,
+                                  color: AppColors.whiteTheme,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                        separatorBuilder: (context, index) => const SizedBox(
+                          width: 5,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                AccordionSection(
+                  isOpen: false,
+                  header: const DividerUI(
+                    color: AppColors.overlayWhite,
+                  ),
+                  rightIcon: const SizedBox(),
+                  content: const SizedBox(),
+                  headerPadding: EdgeInsets.zero,
+                ),
+                AccordionSection(
+                  isOpen: !controller.relatedCharactersLoading,
+                  contentVerticalPadding: 8,
+                  leftIcon: const Icon(Icons.groups, color: Colors.white),
+                  rightIcon: Obx(
+                    () => Visibility(
+                      visible: controller.relatedCharactersLoading,
+                      replacement: const Icon(Icons.keyboard_arrow_up_sharp,
+                          size: 28, color: AppColors.whiteTheme),
+                      child: const CircularProgressIndicatorUI(
+                        width: 15,
+                        height: 15,
+                      ),
+                    ),
+                  ),
+                  header: Text(
+                    'related_characters'.tr.toUpperCase(),
+                    style: const TextStyle(
+                      fontSize: 13,
+                      color: AppColors.whiteTheme,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  content: Obx(
+                    () => Visibility(
+                      visible: !controller.relatedCharactersLoading,
+                      child: SizedBox(
+                        width: Dimensions.widthOf(context, 100),
+                        child: Obx(
+                          () => Wrap(
+                            direction: Axis.horizontal,
+                            runSpacing: 5.0,
+                            spacing: 5,
+                            children: controller.relatedCharacters
+                                .map((character) => CharacterCard(
+                                      width: 12,
+                                      character: character,
+                                      loading: false,
+                                      isThumbnail: true,
+                                      showInfo: false,
+                                      onTap: () async {
+                                        await await CharacterController.instance
+                                            .preview(character.imageUrl);
+                                      },
+                                      onLongPress: () async {
+                                        await await CharacterController.instance
+                                            .preview(character.imageUrl);
+                                      },
+                                    ))
+                                .toList(),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                AccordionSection(
+                  isOpen: false,
+                  header: const DividerUI(
+                    color: AppColors.overlayWhite,
+                  ),
+                  rightIcon: const SizedBox(),
+                  content: const SizedBox(),
+                  headerPadding: EdgeInsets.zero,
+                ),
+              ],
             ),
-          )
-        ],
+            const SizedBox(
+              height: 30,
+            )
+          ],
+        ),
       ),
     );
   }
