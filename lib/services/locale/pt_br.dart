@@ -6,5 +6,7 @@ final Map<String, String> ptBR = {
   "do_search_here": "Pesquise aqui",
   "signout": "Sair",
   "close": "Fechar",
-  "no_results_found_with": "Nenhum resultado encontrado com (@name)"
+  "no_results_found_with": "Nenhum resultado encontrado com (@name)",
+  "series": "Series",
+  "related_characters": "Personagens relacionados"
 };

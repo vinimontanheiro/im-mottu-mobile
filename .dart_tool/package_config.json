@@ -14,6 +14,12 @@
       "languageVersion": "3.2"
     },
     {
+      "name": "accordion",
+      "rootUri": "file:///Users/vini/.pub-cache/hosted/pub.dev/accordion-2.6.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "analyzer",
       "rootUri": "file:///Users/vini/.pub-cache/hosted/pub.dev/analyzer-6.4.1",
       "packageUri": "lib/",
@@ -518,6 +524,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "scroll_to_index",
+      "rootUri": "file:///Users/vini/.pub-cache/hosted/pub.dev/scroll_to_index-3.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "shared_preferences",
       "rootUri": "file:///Users/vini/.pub-cache/hosted/pub.dev/shared_preferences-2.3.2",
       "packageUri": "lib/",
@@ -752,7 +764,7 @@
       "languageVersion": "3.4"
     }
   ],
-  "generated": "2024-09-02T02:40:37.044241Z",
+  "generated": "2024-09-02T13:55:06.184461Z",
   "generator": "pub",
   "generatorVersion": "3.4.4",
   "flutterRoot": "file:///opt/flutter",

@@ -50,6 +50,7 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   nock: ^1.2.3
   cloud_firestore: ^5.3.0
+  accordion: ^2.6.0
 
 dev_dependencies:
   flutter_test:
