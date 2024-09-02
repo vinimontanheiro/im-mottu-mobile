@@ -55,3 +55,5 @@
 - OK Criar channel em kotlin, capturar a mudança de conexão, e mostrar uma mensagem de offline no flutter.
 - OK Criar em alguma arquitetura(MVC, MVVM, MVP, MVU)
 - OK Publição na Loja IOS para tests via TestFlight
+
+\*\* Se tiver alguém aí que usa IOS, me passar os e-mails
