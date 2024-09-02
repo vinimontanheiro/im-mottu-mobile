@@ -42,7 +42,7 @@ class SignStartUpController extends GetxController {
         FlutterNativeSplash.remove();
       }
     } catch (e) {
-      Logger.info(e);
+      Logger.error(e);
     }
   }
 

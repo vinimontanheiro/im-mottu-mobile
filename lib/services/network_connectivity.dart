@@ -28,7 +28,7 @@ class NetworkConnectivity extends GetxController {
         connected = isConnected ?? false;
       });
     } catch (e) {
-      Logger.info(e);
+      Logger.error(e);
     }
   }
 }

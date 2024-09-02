@@ -34,7 +34,7 @@ class CharacterController extends SearchGenericController<Character> {
       change(true, status: RxStatus.success());
       fetching = false;
     } catch (e) {
-      Logger.info(e);
+      Logger.error(e);
     }
   }
 
@@ -47,7 +47,7 @@ class CharacterController extends SearchGenericController<Character> {
         transition: Transition.downToUp,
       );
     } catch (e) {
-      Logger.info(e);
+      Logger.error(e);
     }
   }
 }

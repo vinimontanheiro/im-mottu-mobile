@@ -11,10 +11,13 @@ import FirebaseCore
         GeneratedPluginRegistrant.register(
             with: self
         )
-        FirebaseApp.configure()
-      
+        
         let controller : FlutterViewController = window?.rootViewController as! FlutterViewController
         AppEventChannel().setup(controller: controller)
+        
+        if FirebaseApp.app() == nil {
+            FirebaseApp.configure()
+        }
         
         return super.application(
             application,
