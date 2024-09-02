@@ -8,22 +8,24 @@ import 'package:marvel/services/dimensions.dart';
 
 class CharacterCard extends StatelessWidget {
   final Character character;
-  final void Function() onTap;
-  final void Function() onLongPress;
+  final void Function()? onTap;
+  final void Function()? onLongPress;
   final bool loading;
   final double width;
   final bool showInfo;
   final bool isThumbnail;
+  final bool animate;
 
   const CharacterCard({
     super.key,
-    required this.onTap,
+    this.onTap,
     this.loading = false,
     required this.character,
     this.width = 100,
     this.isThumbnail = false,
     this.showInfo = true,
-    required this.onLongPress,
+    this.onLongPress,
+    this.animate = true,
   });
   @override
   Widget build(BuildContext context) {
@@ -31,6 +33,7 @@ class CharacterCard extends StatelessWidget {
       children: [
         Positioned(
           child: FadeIn(
+            animate: animate,
             child: Column(
               children: [
                 ClipRRect(

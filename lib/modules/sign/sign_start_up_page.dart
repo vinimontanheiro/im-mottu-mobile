@@ -34,80 +34,83 @@ class SignStartUpPage extends GetView<SignStartUpController> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(15.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Obx(
-                () => marvelAnimationRender(controller.animationStatusType),
-              ),
-              Column(
-                children: [
-                  Row(
-                    children: [
-                      Obx(
-                        () => Switch(
-                          value: controller.autoSignIn,
-                          overlayColor:
-                              const WidgetStatePropertyAll<Color>(Colors.amber),
-                          trackColor: WidgetStatePropertyAll<Color>(
-                              controller.autoSignIn
-                                  ? Colors.amber
-                                  : Colors.grey.shade300),
-                          thumbColor:
-                              const WidgetStatePropertyAll<Color>(Colors.black),
-                          onChanged: (bool autoSignIn) =>
-                              controller.autoSignIn = autoSignIn,
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'auto_join'.tr.toUpperCase(),
-                        style: const TextStyle(
-                          fontSize: 12,
-                          color: AppColors.whiteTheme,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      )
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  InkWell(
-                    overlayColor: WidgetStatePropertyAll<Color>(
-                        Colors.amber.withAlpha(100)),
-                    customBorder: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      side: const BorderSide(
-                          color: AppColors.whiteTheme, width: 3),
-                    ),
-                    onTap: controller.join,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                            color: AppColors.whiteTheme,
-                            width: 2,
+          child: SizedBox(
+            height: Dimensions.heightOf(context, 100),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Obx(
+                  () => marvelAnimationRender(controller.animationStatusType),
+                ),
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        Obx(
+                          () => Switch(
+                            value: controller.autoSignIn,
+                            overlayColor: const WidgetStatePropertyAll<Color>(
+                                Colors.amber),
+                            trackColor: WidgetStatePropertyAll<Color>(
+                                controller.autoSignIn
+                                    ? Colors.amber
+                                    : Colors.grey.shade300),
+                            thumbColor: const WidgetStatePropertyAll<Color>(
+                                Colors.black),
+                            onChanged: (bool autoSignIn) =>
+                                controller.autoSignIn = autoSignIn,
                           ),
-                          borderRadius: BorderRadius.circular(20)),
-                      width: Dimensions.widthOf(context, 90),
-                      height: 60,
-                      child: Center(
-                        child: Text(
-                          'join'.tr.toUpperCase(),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          'auto_join'.tr.toUpperCase(),
                           style: const TextStyle(
-                            fontSize: 13,
+                            fontSize: 12,
                             color: AppColors.whiteTheme,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    InkWell(
+                      overlayColor: WidgetStatePropertyAll<Color>(
+                          Colors.amber.withAlpha(100)),
+                      customBorder: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        side: const BorderSide(
+                            color: AppColors.whiteTheme, width: 3),
+                      ),
+                      onTap: controller.join,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                              color: AppColors.whiteTheme,
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(20)),
+                        width: Dimensions.widthOf(context, 90),
+                        height: 60,
+                        child: Center(
+                          child: Text(
+                            'join'.tr.toUpperCase(),
+                            style: const TextStyle(
+                              fontSize: 13,
+                              color: AppColors.whiteTheme,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              )
-            ],
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),

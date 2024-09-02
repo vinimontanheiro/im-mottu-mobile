@@ -15,7 +15,7 @@ class CharacterDetailController extends GetxController {
 
   @override
   void onInit() async {
-    int? characterId = Get.arguments!;
+    int? characterId = Get.arguments;
     await load(characterId);
     super.onInit();
   }

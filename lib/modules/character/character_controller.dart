@@ -62,8 +62,7 @@ class CharacterController extends SearchGenericController<Character> {
           nameStartsWith: searchText,
           offset: items.length,
           limit: limit,
-        ))
-            .cast<Character>();
+        ));
         updateItems(offset, characters);
         change(true, status: RxStatus.success());
 
