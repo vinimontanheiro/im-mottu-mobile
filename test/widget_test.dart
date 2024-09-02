@@ -5,26 +5,49 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart' as http;
+import 'package:marvel/models/credentials.dart';
+import 'package:nock/nock.dart';
 
-import 'package:marvel/main.dart';
+const url = "http://gateway.marvel.com";
+const String path = '/v1/public/characters';
 
-void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MottuMarvel());
+Future<void> main() async {
+  setUpAll(() {
+    nock.init();
+  });
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+  // testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  //   // Build our app and trigger a frame.
+  //   await tester.pumpWidget(const MottuMarvel());
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+  //   // Verify that our counter starts at 0.
+  //   expect(find.text('0'), findsOneWidget);
+  //   expect(find.text('1'), findsNothing);
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+  //   // Tap the '+' icon and trigger a frame.
+  //   await tester.tap(find.byIcon(Icons.add));
+  //   await tester.pump();
+
+  //   // Verify that our counter has incremented.
+  //   expect(find.text('0'), findsNothing);
+  //   expect(find.text('1'), findsOneWidget);
+  // });
+
+  test("example", () async {
+    final interceptor = nock(url).get(path)
+      ..reply(
+        200,
+        "result",
+      );
+
+    final http.Response response = await http.Client().get(
+        Uri.parse("$url$path")
+            .replace(queryParameters: Credentials.refresh().toJson()));
+
+    expect(interceptor.isDone, true);
+    expect(response.statusCode, 200);
+    expect(response.body, "result");
   });
 }
