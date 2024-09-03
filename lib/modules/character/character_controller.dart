@@ -56,8 +56,8 @@ class CharacterController extends SearchGenericController<Character> {
   @override
   Future<void> list(int offset) async {
     try {
+      fetching = true;
       if (NetworkConnectivity.instance.connected) {
-        fetching = true;
         List<Character> characters = (await characterServiceAPI.list(
           nameStartsWith: searchText,
           offset: items.length,
@@ -65,11 +65,8 @@ class CharacterController extends SearchGenericController<Character> {
         ));
         updateItems(offset, characters);
         change(true, status: RxStatus.success());
-
-        await characterServiceAPI.get(characters.first.id);
-
-        fetching = false;
       }
+      fetching = false;
     } catch (e) {
       Logger.error(e);
     }

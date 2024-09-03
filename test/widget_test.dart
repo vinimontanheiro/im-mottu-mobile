@@ -61,7 +61,7 @@ Future<void> main() async {
     expect(
       find.text('I am here!'),
       findsOneWidget,
-      reason: 'ScaffoldExtendBodyUI Widget test fail',
+      reason: 'ScaffoldExtendBodyUI Widget test failed',
     );
   });
 
@@ -77,7 +77,7 @@ Future<void> main() async {
       find.image(const CachedNetworkImageProvider(
           'https://www.google.com/url?sa=i&url=https%3A%2F%2Fletsenhance.io%2F&psig=AOvVaw26mQqy9dR4gJL_bfUTn7MM&ust=1725384001671000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCIC_2bXipIgDFQAAAAAdAAAAABAE')),
       findsOneWidget,
-      reason: 'ImagePreview Widget test fail',
+      reason: 'ImagePreview Widget test failed',
     );
   });
 
@@ -89,7 +89,7 @@ Future<void> main() async {
     expect(
       find.byIcon(Icons.menu),
       findsWidgets,
-      reason: 'MenuHandler Widget test fail',
+      reason: 'MenuHandler Widget test failed',
     );
   });
 
@@ -115,13 +115,13 @@ Future<void> main() async {
     expect(
       find.text(character.name),
       findsWidgets,
-      reason: 'character.name Widget test fail',
+      reason: 'character.name Widget test failed',
     );
 
     expect(
       find.image(CachedNetworkImageProvider(character.imageUrl)),
       findsWidgets,
-      reason: 'character.imageUrl Widget test fail',
+      reason: 'character.imageUrl Widget test failed',
     );
   });
 
@@ -138,13 +138,13 @@ Future<void> main() async {
     expect(
       find.text('auto_join'.tr.toUpperCase()),
       findsOneWidget,
-      reason: 'auto_join Widget test fail',
+      reason: 'auto_join Widget test failed',
     );
 
     expect(
       find.text('join'.tr.toUpperCase()),
       findsOneWidget,
-      reason: 'join Widget test fail',
+      reason: 'join Widget test failed',
     );
   });
 
@@ -167,7 +167,7 @@ Future<void> main() async {
     expect(
       networkConnectivityEventChannelOk,
       true,
-      reason: "NetworkConnectivity event channel test",
+      reason: "NetworkConnectivity event channel test failed",
     );
   });
 
@@ -186,7 +186,7 @@ Future<void> main() async {
 
     expect(interceptor.isDone, true);
     expect(response.statusCode, HttpStatus.ok,
-        reason: 'Listing characters test fail');
+        reason: 'Listing characters test failed');
   });
 
   test("Getting characters test", () async {
@@ -207,7 +207,7 @@ Future<void> main() async {
       true,
     );
     expect(response.statusCode, HttpStatus.ok,
-        reason: 'Getting characters test fail');
+        reason: 'Getting characters test failed');
   });
 
   test("Listing series test", () async {
@@ -226,6 +226,6 @@ Future<void> main() async {
 
     expect(interceptor.isDone, true);
     expect(response.statusCode, HttpStatus.ok,
-        reason: 'Listing series test fail');
+        reason: 'Listing series test failed');
   });
 }

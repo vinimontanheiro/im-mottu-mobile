@@ -54,16 +54,17 @@ class CharacterListPage extends GetView<CharacterController> {
                       itemCount: controller.items.length,
                       itemBuilder: (context, index) {
                         Character character = controller.items[index];
-                        bool loading = (index + 1) == controller.items.length;
-                        return CharacterCard(
-                          character: character,
-                          loading: loading,
-                          onTap: () async {
-                            await controller.detail(character);
-                          },
-                          onLongPress: () async {
-                            await controller.preview(character.imageUrl);
-                          },
+                        return Obx(
+                          () => CharacterCard(
+                            character: character,
+                            loading: (index + 1) == controller.items.length,
+                            onTap: () async {
+                              await controller.detail(character);
+                            },
+                            onLongPress: () async {
+                              await controller.preview(character.imageUrl);
+                            },
+                          ),
                         );
                       },
                       separatorBuilder: (context, index) => const SizedBox(
